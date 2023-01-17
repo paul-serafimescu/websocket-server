@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>websocket test</title>
+    </head>
+    <body>
+        this is a test thing
+        <script>
+            let value = 0;
+
+            const x = new WebSocket('ws://localhost:8080');
+
+            x.addEventListener('open', event => {
+                x.send(`hello from client ${x.url}`);
+            });
+
+            x.addEventListener('message', event => {
+                console.log('Message from server ', event.data);
+            });
+
+            x.addEventListener('error', event => {
+                console.log(event);
+            });
+
+            setInterval(function() {
+                x.send(`hello again ${value}`);
+                value += 10;
+            }, 5000);
+        </script>
+    </body>
+</html>
